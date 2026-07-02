@@ -1,5 +1,5 @@
 <div align="center">
-    <img src=".regis/assets/icon.png" width=130>
+    <img src="./regis/assets/icon.png" width=130>
     <h1>
         <b>Regis</b>
     </h1>

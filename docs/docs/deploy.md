@@ -11,6 +11,24 @@ icon: material/rocket-launch
 
 ## Deploy Methods
 
+=== "Local MongoDB with Docker Compose"
+
+    1. Copy the database example environment file and change the password:
+
+        ```bash
+        cp .env.docker.example .env.docker
+        ```
+
+    2. Start MongoDB:
+
+        ```bash
+        docker compose up -d mongodb
+        ```
+
+    3. Set the matching `DATABASE_URI` and `DATABASE_NAME` values in the bot's `.env` file, then follow the local installation steps below.
+
+    Stop the database with `docker compose down`. Add `-v` only when you intentionally want to delete the MongoDB data volume.
+
 <!--     1. Install Docker or Podman.
 
     2. Get the `.env` file
