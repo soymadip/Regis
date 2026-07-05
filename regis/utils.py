@@ -1,17 +1,24 @@
-import logging
-from pyrogram.errors import InputUserDeactivated, UserNotParticipant, FloodWait, UserIsBlocked, PeerIdInvalid
-from regis.info import AUTH_CHANNEL, LONG_IMDB_DESCRIPTION, MAX_LIST_ELM
-from imdb import IMDb
 import asyncio
-from pyrogram.types import Message
-from typing import Union
-import re
+import logging
 import os
+import re
 from datetime import datetime
-from pyrogram.types import InlineKeyboardButton
-from regis.database.users_chats_db import db
-from bs4 import BeautifulSoup
+from typing import Union
+
 import requests
+from bs4 import BeautifulSoup
+from imdb import IMDb
+from pyrogram.errors import (
+    FloodWait,
+    InputUserDeactivated,
+    PeerIdInvalid,
+    UserIsBlocked,
+    UserNotParticipant,
+)
+from pyrogram.types import InlineKeyboardButton, Message
+
+from regis.database.users_chats_db import db
+from regis.info import AUTH_CHANNEL, LONG_IMDB_DESCRIPTION, MAX_LIST_ELM
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
