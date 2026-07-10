@@ -1,6 +1,6 @@
 ---
 title: Credits
-icon: material/hand-heart
+icon: lucide/heart-handshake
 ---
 
  - First of all thanks to [Eva Maria](https://github.com/EvamariaTG/EvaMaria) Devs.

@@ -1,5 +1,0 @@
-mkdocs
-mkdocs-material
-pymdown-extensions
-mkdocs-glightbox
-mkdocs-material[imaging]

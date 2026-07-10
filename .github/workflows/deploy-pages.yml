@@ -1,41 +1,46 @@
-name: Deploy to GitHub Pages
+name: Deploy documentation to GitHub Pages
 
 on:
   push:
     paths:
       - 'docs/**'
+      - 'pyproject.toml'
+      - 'uv.lock'
+      - 'docs/zensical.toml'
     branches:
       - main
 
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v6
+
       - name: Compile docs
         run: |
-          echo "Compiling documentation..."
-          
-          pip install -r docs/requirements.txt
-          python -m mkdocs build --config-file docs/mkdocs.yml --site-dir build
+          uv sync --locked
+          uv run zensical build --config-file docs/zensical.toml --clean
 
-          echo "Documentation compiled successfully."
-
-      - name: Create .nojekyll & README file
-        run: |
-          echo "" > docs/build/.nojekyll
-          echo '<h1 align="center">THIS BRANCH IS AUTO-GENERATED</h1>' > docs/build/README.md
+      - name: Upload site artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/site
 
       - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: docs/build
-          branch: docs
+        uses: actions/deploy-pages@v4
+        id: deployment

@@ -1,16 +1,15 @@
 ---
-title: Home
-icon: material/home
+title: Get started
+icon: lucide/package-open
 ---
 
 <div align="center">
-    <img src="./src/icon.png" width=130>
     <h1><b>Regis</b></h1>
     <p>A fully functional Group Management Bot with Auto Filter and File Store Feature.</p>
 </div>
 
 
-## **:material-lightning-bolt: Features**
+## Features
 
 - [x] **Admin Commands**
 - [x] **Blocking (tmute, mute, kick)**

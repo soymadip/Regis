@@ -1,12 +1,11 @@
 ---
 title: Deployment
-icon: material/rocket-launch
+icon: lucide/rocket
 ---
 
 !!! bug "Development stopped"
 
-    - Pyrogram is no longer maintained.<br>
-    - Porting to telethon may be done in future, not in my priority list now.
+    - Pyrogram is no longer maintained; Regis uses its Kurigram-compatible API.
     - Also this was my 1st project, code is messy. So porting will be extremely time consuming.
 
 ## Deploy Methods
@@ -22,12 +21,12 @@ icon: material/rocket-launch
     2. Start MongoDB:
 
         ```bash
-        docker compose up -d mongodb
+        docker compose --env-file .env.docker up -d mongodb
         ```
 
     3. Set the matching `DATABASE_URI` and `DATABASE_NAME` values in the bot's `.env` file, then follow the local installation steps below.
 
-    Stop the database with `docker compose down`. Add `-v` only when you intentionally want to delete the MongoDB data volume.
+    Stop the database with `docker compose --env-file .env.docker down`. Add `-v` only when you intentionally want to delete the MongoDB data volume.
 
 <!--     1. Install Docker or Podman.
 
@@ -96,7 +95,7 @@ Below are the available configuration variables/options & their descriptions:
 
 !!! info
 
-    Default values can be found [here](https://github.com/soymadip/Regis/blob/main/info.py#L17).
+    Default values can be found [here](https://github.com/soymadip/Regis/blob/main/regis/info.py#L17).
 
 
 ### Bot Credentials
@@ -134,7 +133,7 @@ Below are the available configuration variables/options & their descriptions:
 | **PROTECT_CONTENT**      | Set to `True` or `False`.<br> If `True`, files from the bot cannot be forwarded to any chat.            | No           |
 | **INDEX_REQ_CHANNEL**    | Channel ID where index requests are sent. Defaults to LOG_CHANNEL if not specified.                     | No           |
 | **CACHE_TIME**           | Time in seconds for caching inline query results. Default is 300.                                       | No           |
-| **SESSION**               | Name for the Pyrogram session. Default is 'Regis'.                                                     | No           |
+| **SESSION**               | Name for the Kurigram session. Default is 'Regis'.                                                     | No           |
 
 
 ### Bot Settings

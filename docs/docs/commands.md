@@ -1,6 +1,6 @@
 ---
 title: Bot Commands
-icon: octicons/command-palette-16
+icon: lucide/terminal
 ---
 
 ## Available Bot commands

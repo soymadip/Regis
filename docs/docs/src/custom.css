@@ -6,6 +6,11 @@
   font-size: 1.1rem;
 }
 
+/* Keep the black logo visible against the dark header. */
+[data-md-color-scheme="slate"] .md-logo img {
+  filter: invert(1);
+}
+
 /* Bold & accent colored h2*/
 h2{
   color:var(--md-accent-fg-color);
