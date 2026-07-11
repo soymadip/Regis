@@ -4,9 +4,8 @@ on:
   push:
     paths:
       - 'docs/**'
-      - 'pyproject.toml'
-      - 'uv.lock'
-      - 'docs/zensical.toml'
+      - 'docs/pyproject.toml'
+      - 'docs/uv.lock'
     branches:
       - main
 
@@ -32,9 +31,10 @@ jobs:
         uses: astral-sh/setup-uv@v6
 
       - name: Compile docs
+        working-directory: docs
         run: |
           uv sync --locked
-          uv run zensical build --config-file docs/zensical.toml --clean
+          uv run zensical build --clean
 
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3

@@ -22,10 +22,6 @@ dependencies = [
 [project.scripts]
 regis = "regis:main"
 
-[dependency-groups]
-dev = [
-    "zensical>=0.0.62",
-]
 
 [build-system]
 requires = ["uv_build>=0.12.7,<0.13.0"]

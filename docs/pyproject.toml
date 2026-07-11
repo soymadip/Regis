@@ -1,0 +1,13 @@
+[project]
+name = "regis-docs"
+version = "0.1.0"
+description = "Documentation site for Regis."
+requires-python = ">=3.10"
+
+[dependency-groups]
+dev = [
+    "zensical>=0.0.62",
+]
+
+[tool.uv]
+package = false
