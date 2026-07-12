@@ -1,4 +1,4 @@
-name: Deploy documentation to GitHub Pages
+name: Deploy Docs to GitHub Pages
 
 on:
   push:
@@ -19,13 +19,13 @@ permissions:
 jobs:
   deploy:
     environment:
-      name: regis-pages
+      name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up uv
         uses: astral-sh/setup-uv@v6
@@ -37,10 +37,10 @@ jobs:
           uv run zensical build --clean
 
       - name: Upload site artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: docs/site
 
       - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
         id: deployment
