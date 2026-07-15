@@ -1,6 +1,7 @@
 # Personal files
 *.session
 *.session-journal
+*.db
 .vscode
 *test*.py
 setup.cfg
