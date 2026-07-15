@@ -1,30 +1,34 @@
 import logging
 import logging.config
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from pathlib import Path
+
+from pyrogram import Client, __version__
+from pyrogram.raw.all import layer
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+
+from regis.database.ia_filterdb import Media
+from regis.database.users_chats_db import db
+from regis.info import API_HASH, API_ID, BOT_TOKEN, LOG_STR, SESSION
+from regis.utils import temp
 
 # Get logging configurations
-logging.config.fileConfig('logging.conf')
+logging.config.fileConfig(Path(__file__).with_name('logging.conf'))
 logging.getLogger().setLevel(logging.INFO)
 logging.getLogger("pyrogram").setLevel(logging.ERROR)
 logging.getLogger("imdbpy").setLevel(logging.ERROR)
 
-from pyrogram import Client, __version__
-from pyrogram.raw.all import layer
-from regis.database.ia_filterdb import Media
-from regis.database.users_chats_db import db
-from regis.info import SESSION, API_ID, API_HASH, BOT_TOKEN, LOG_STR
-from regis.utils import temp
+
 
 class Bot(Client):
 
     def __init__(self):
         super().__init__(
-            session_name=SESSION,
+            name=SESSION,
             api_id=API_ID,
             api_hash=API_HASH,
             bot_token=BOT_TOKEN,
             workers=50,
-            plugins={"root": "plugins"},
+            plugins={"root": "regis.plugins"},
             sleep_threshold=5,
         )
 

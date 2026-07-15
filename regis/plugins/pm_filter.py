@@ -1,27 +1,63 @@
-import asyncio
-import re
 import ast
+import asyncio
+import logging
+import re
 
-from pyrogram.errors.exceptions.bad_request_400 import MediaEmpty, PhotoInvalidDimensions, WebpageMediaEmpty
-from regis.Script import script
 import pyrogram
-from regis.database.connections_mdb import active_connection, all_connections, delete_connection, if_active, make_active, \
-    make_inactive
-from regis.info import ADMINS, AUTH_CHANNEL, AUTH_USERS, CUSTOM_FILE_CAPTION, PM_FILTER, AUTH_GROUPS, IGNORE_WORDS, P_TTI_SHOW_OFF, PROTECT_CONTENT, IMDB, AUTO_DELETE_MESSAGE_TIME, \
-    SINGLE_BUTTON, SPELL_CHECK_REPLY, MAINTENANCE_MODE, IMDB_TEMPLATE, LOG_CHANNEL, SUPPORT_CHAT
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
-from pyrogram.handlers import CallbackQueryHandler
 from pyrogram import Client, filters
-from pyrogram.errors import FloodWait, UserIsBlocked, MessageNotModified, PeerIdInvalid
-from regis.utils import get_size, is_subscribed, get_poster, search_gagala, temp, get_settings, save_group_settings
-from regis.database.users_chats_db import db
-from regis.database.ia_filterdb import Media, get_file_details, get_search_results
+from pyrogram.errors import FloodWait, MessageNotModified, PeerIdInvalid, UserIsBlocked
+from pyrogram.errors.exceptions.bad_request_400 import (
+    MediaEmpty,
+    PhotoInvalidDimensions,
+    WebpageMediaEmpty,
+)
+from pyrogram.handlers import CallbackQueryHandler
+from pyrogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup
+
+from regis.database.connections_mdb import (
+    active_connection,
+    all_connections,
+    delete_connection,
+    if_active,
+    make_active,
+    make_inactive,
+)
 from regis.database.filters_mdb import (
     del_all,
     find_filter,
     get_filters,
 )
-import logging
+from regis.database.ia_filterdb import Media, get_file_details, get_search_results
+from regis.database.users_chats_db import db
+from regis.info import (
+    ADMINS,
+    AUTH_CHANNEL,
+    AUTH_GROUPS,
+    AUTH_USERS,
+    AUTO_DELETE_MESSAGE_TIME,
+    CUSTOM_FILE_CAPTION,
+    IGNORE_WORDS,
+    IMDB,
+    IMDB_TEMPLATE,
+    LOG_CHANNEL,
+    MAINTENANCE_MODE,
+    P_TTI_SHOW_OFF,
+    PM_FILTER,
+    PROTECT_CONTENT,
+    SINGLE_BUTTON,
+    SPELL_CHECK_REPLY,
+    SUPPORT_CHAT,
+)
+from regis.Script import script
+from regis.utils import (
+    get_poster,
+    get_settings,
+    get_size,
+    is_subscribed,
+    save_group_settings,
+    search_gagala,
+    temp,
+)
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.ERROR)
@@ -29,7 +65,7 @@ BUTTONS = {}
 SPELL_CHECK = {}
 
 
-@Client.on_message(filters.group & filters.text & ~filters.edited & filters.incoming)
+@Client.on_message(filters.group & filters.text & filters.incoming)
 async def give_filter(client, message):
     if MAINTENANCE_MODE:
         if AUTH_USERS and message.from_user and message.from_user.id in AUTH_USERS:
@@ -604,7 +640,7 @@ async def auto_filter(client, msg, spoll=False):
         if message.text.startswith("/"): return  # ignore commands
         if message.text.startswith("#"): return  # ignore wrong formats
         if message.text.startswith("."): return # ignore userbot commands
-        if re.findall("((^\/|^,|^!|^\.|^[\U0001F600-\U000E007F]).*)", message.text):
+        if re.findall(r"((^/|^,|^!|^\.|^[\U0001F600-\U000E007F]).*)", message.text):
             return
         if 1 < len(message.text) < 100:
             search = message.text

@@ -1,16 +1,29 @@
 from pyrogram import Client, filters
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from pyrogram.errors import (
+    ChatAdminRequired,
+    FloodWait,
+    MessageNotModified,
+    PeerIdInvalid,
+    UserIsBlocked,
+)
 from pyrogram.errors.exceptions.bad_request_400 import MessageTooLong, PeerIdInvalid
-from regis.info import ADMINS, LOG_CHANNEL, SUPPORT_CHAT, MELCOW_NEW_USERS, MELCOW_NEW_TEXT, AUTH_USERS, PM_FILTER, MAINTENANCE_MODE
-from regis.database.users_chats_db import db
-from regis.database.ia_filterdb import Media
-from regis.utils import get_size, temp, get_settings
-from regis.Script import script
-from pyrogram.errors import ChatAdminRequired
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 from pyrogram.handlers import CallbackQueryHandler
-from pyrogram import Client, filters
-from pyrogram.errors import FloodWait, UserIsBlocked, MessageNotModified, PeerIdInvalid
+from pyrogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup
+
+from regis.database.ia_filterdb import Media
+from regis.database.users_chats_db import db
+from regis.info import (
+    ADMINS,
+    AUTH_USERS,
+    LOG_CHANNEL,
+    MAINTENANCE_MODE,
+    MELCOW_NEW_TEXT,
+    MELCOW_NEW_USERS,
+    PM_FILTER,
+    SUPPORT_CHAT,
+)
+from regis.Script import script
+from regis.utils import get_settings, get_size, temp
 
 
 @Client.on_message(filters.new_chat_members & filters.group)
@@ -289,7 +302,7 @@ async def gen_invite(bot, message):
     await message.reply(f'Here is your Invite Link {link.invite_link}')
 
 
-@Client.on_message(filters.text & filters.private & ~filters.edited & filters.incoming) #PM filter module
+@Client.on_message(filters.text & filters.private & filters.incoming) #PM filter module
 async def filter(client, message):
     if PM_FILTER:
         return

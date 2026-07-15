@@ -1,24 +1,36 @@
-import os
-import logging
-import random
 import asyncio
-from regis.Script import script
+import base64
+import json
+import logging
+import os
+import random
+import re
+
 from pyrogram import Client, filters
 from pyrogram.errors import ChatAdminRequired, FloodWait
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+
+from regis.database.connections_mdb import active_connection
 from regis.database.ia_filterdb import Media, get_file_details, unpack_new_file_id
 from regis.database.users_chats_db import db
-from regis.info import CHANNELS, ADMINS, AUTH_CHANNEL, LOG_CHANNEL, PICS, BATCH_FILE_CAPTION, CUSTOM_FILE_CAPTION, PROTECT_CONTENT
+from regis.info import (
+    ADMINS,
+    AUTH_CHANNEL,
+    BATCH_FILE_CAPTION,
+    CHANNELS,
+    CUSTOM_FILE_CAPTION,
+    LOG_CHANNEL,
+    PICS,
+    PROTECT_CONTENT,
+)
+from regis.Script import script
 from regis.utils import get_settings, get_size, is_subscribed, save_group_settings, temp
-from regis.database.connections_mdb import active_connection
-import re
-import json
-import base64
+
 logger = logging.getLogger(__name__)
 
 BATCH_FILES = {}
 
-@Client.on_message(filters.command("start") & filters.incoming & ~filters.edited)
+@Client.on_message(filters.command("start") & filters.incoming)
 async def start(client, message):
     if message.chat.type in ['group', 'supergroup']:
         buttons = [

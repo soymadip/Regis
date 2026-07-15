@@ -8,7 +8,6 @@ from typing import Union
 import re
 import os
 from datetime import datetime
-from typing import List
 from pyrogram.types import InlineKeyboardButton
 from regis.database.users_chats_db import db
 from bs4 import BeautifulSoup
@@ -138,7 +137,7 @@ async def qbroadcast_messages(user_id, message):
         return True, "Success"
     except FloodWait as e:
         await asyncio.sleep(e.x)
-        return await broadcast_messages(user_id, message)
+        return await qbroadcast_messages(user_id, message)
     except InputUserDeactivated:
         await db.delete_user(int(user_id))
         logging.info(f"{user_id}-Removed from Database, since deleted account.")
@@ -162,7 +161,7 @@ async def wqbroadcast_messages(user_id, message):
         return True, "Success"
     except FloodWait as e:
         await asyncio.sleep(e.x)
-        return await broadcast_messages(user_id, message)
+        return await wqbroadcast_messages(user_id, message)
     except InputUserDeactivated:
         await db.delete_user(int(user_id))
         logging.info(f"{user_id}-Removed from Database, since deleted account.")
@@ -300,7 +299,7 @@ def last_online(from_user):
     return time
 
 
-def split_quotes(text: str) -> List:
+def split_quotes(text: str) -> list:
     if not any(text.startswith(char) for char in START_CHAR):
         return text.split(None, 1)
     counter = 1  # ignore first char -> is some kind of quote

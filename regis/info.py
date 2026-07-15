@@ -1,10 +1,12 @@
-import re
 import os
+import re
+
 from dotenv import load_dotenv
 
 load_dotenv()
 
-id_pattern = re.compile(r'^.\d+$')
+id_pattern = re.compile(r'^-?\d+$')
+
 def is_enabled(value, default):
     if value.lower() in ["true", "yes", "1", "enable", "y"]:
         return True
@@ -17,13 +19,13 @@ def is_enabled(value, default):
 
 # Bot information
 SESSION = os.getenv('SESSION', 'Regis')
-API_ID = int(os.getenv('API_ID'))
+API_ID = int(os.getenv('API_ID', 0))
 API_HASH = os.getenv('API_HASH')
 BOT_TOKEN = os.getenv('BOT_TOKEN')
 
 # Bot settings
 CACHE_TIME = int(os.getenv('CACHE_TIME', 300))
-USE_CAPTION_FILTER = bool(os.getenv('CAPTION_FILTER', False))
+USE_CAPTION_FILTER = is_enabled(os.getenv('CAPTION_FILTER', 'False'), False)
 PICS = os.getenv(
     'PICS',
     'https://telegra.ph/file/7e56d907542396289fee4.jpg https://telegra.ph/file/9aa8dd372f4739fe02d85.jpg https://telegra.ph/file/adffc5ce502f5578e2806.jpg https://telegra.ph/file/6937b60bc2617597b92fd.jpg https://telegra.ph/file/09a7abaab340143f9c7e7.jpg https://telegra.ph/file/5a82c4a59bd04d415af1c.jpg https://telegra.ph/file/323986d3bd9c4c1b3cb26.jpg https://telegra.ph/file/b8a82dcb89fb296f92ca0.jpg https://telegra.ph/file/31adab039a85ed88e22b0.jpg https://telegra.ph/file/c0e0f4c3ed53ac8438f34.jpg https://telegra.ph/file/eede835fb3c37e07c9cee.jpg https://telegra.ph/file/e17d2d068f71a9867d554.jpg https://telegra.ph/file/8fb1ae7d995e8735a7c25.jpg https://telegra.ph/file/8fed19586b4aa019ec215.jpg https://telegra.ph/file/8e6c923abd6139083e1de.jpg https://telegra.ph/file/0049d801d29e83d68b001.jpg'
@@ -44,8 +46,11 @@ AUTH_GROUPS = [int(ch) for ch in auth_grp.split()] if auth_grp else None
 MAINTENANCE_MODE = is_enabled(os.getenv('MAINTENANCE_MODE', "False"), False)
 
 # MongoDB information
-DATABASE_URI = os.getenv('DATABASE_URI', "")
-DATABASE_NAME = os.getenv('DATABASE_NAME', "Reigs DB")
+DATABASE_URI = os.getenv(
+    'DATABASE_URI',
+    'mongodb://regis:regis-local-password@127.0.0.1:27017/regis?authSource=admin',
+)
+DATABASE_NAME = os.getenv('DATABASE_NAME', 'regis')
 COLLECTION_NAME = os.getenv('COLLECTION_NAME', 'TG Files')
 
 # Others
@@ -77,7 +82,7 @@ MELCOW_NEW_TEXT = os.getenv("WELCOM_NEW_TEXT", "Hey {mention} welcome to {chat}.
 PROTECT_CONTENT = is_enabled(os.getenv('PROTECT_CONTENT', "False"), False)
 PUBLIC_FILE_STORE = is_enabled(os.getenv('PUBLIC_FILE_STORE', "True"), True)
 PM_FILTER = is_enabled(os.getenv('PM_FILTER', "False"), False)
-AUTO_DELETE_MESSAGE_TIME = os.getenv('AUTO_MESSAGE_DELETE_TIME', '10')
+AUTO_DELETE_MESSAGE_TIME = int(os.getenv('AUTO_MESSAGE_DELETE_TIME', 10))
 
 
 
