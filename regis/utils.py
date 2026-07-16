@@ -1,6 +1,6 @@
 import logging
 from pyrogram.errors import InputUserDeactivated, UserNotParticipant, FloodWait, UserIsBlocked, PeerIdInvalid
-from info import AUTH_CHANNEL, LONG_IMDB_DESCRIPTION, MAX_LIST_ELM
+from regis.info import AUTH_CHANNEL, LONG_IMDB_DESCRIPTION, MAX_LIST_ELM
 from imdb import IMDb
 import asyncio
 from pyrogram.types import Message
@@ -10,7 +10,7 @@ import os
 from datetime import datetime
 from typing import List
 from pyrogram.types import InlineKeyboardButton
-from database.users_chats_db import db
+from regis.database.users_chats_db import db
 from bs4 import BeautifulSoup
 import requests
 

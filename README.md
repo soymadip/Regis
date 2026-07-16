@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="./Assets/icon.png" width=130>
+    <img src=".regis/assets/icon.png" width=130>
     <h1>
         <b>Regis</b>
     </h1>
@@ -22,8 +22,7 @@
 >[!WARNING]
 >Development stopped.<br>
 >Pyrogram is no longer maintained.<br>
->Porting to telethon may be done in future, not in my priority list now.<br>
->Also this was my 1st project, so codebase is extremely messy.
+>Porting to Kurigram will be done in future, not in my priority list now.<br>
 
 <br>
 

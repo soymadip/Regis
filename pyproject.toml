@@ -1,0 +1,30 @@
+[project]
+name = "regis"
+version = "0.1.0"
+description = "The Ultimate Group Admin: Smart Moderation, Auto Filters, File Storage & More."
+readme = "README.md"
+authors = [
+    { name = "Soumadip Das", email = "soumadip+github@zohomail.in" }
+]
+requires-python = ">=3.10"
+dependencies = [
+    "kurigram[fast]>=2.2.26",
+    "beautifulsoup4>=4.12",
+    "cinemagoer>=2023.5.1",
+    "marshmallow>=3.21",
+    "motor>=3.6",
+    "pymongo>=4.9",
+    "python-dotenv>=1.0",
+    "requests>=2.32",
+    "umongo>=3.1",
+]
+
+[project.scripts]
+regis = "regis:main"
+
+[build-system]
+requires = ["uv_build>=0.12.7,<0.13.0"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-root = ""

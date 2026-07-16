@@ -1,11 +1,11 @@
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from pyrogram.errors.exceptions.bad_request_400 import MessageTooLong, PeerIdInvalid
-from info import ADMINS, LOG_CHANNEL, SUPPORT_CHAT, MELCOW_NEW_USERS, MELCOW_NEW_TEXT, AUTH_USERS, PM_FILTER, MAINTENANCE_MODE
-from database.users_chats_db import db
-from database.ia_filterdb import Media
-from utils import get_size, temp, get_settings
-from Script import script
+from regis.info import ADMINS, LOG_CHANNEL, SUPPORT_CHAT, MELCOW_NEW_USERS, MELCOW_NEW_TEXT, AUTH_USERS, PM_FILTER, MAINTENANCE_MODE
+from regis.database.users_chats_db import db
+from regis.database.ia_filterdb import Media
+from regis.utils import get_size, temp, get_settings
+from regis.Script import script
 from pyrogram.errors import ChatAdminRequired
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 from pyrogram.handlers import CallbackQueryHandler

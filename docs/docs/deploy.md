@@ -54,12 +54,12 @@ icon: material/rocket-launch
     4. Install Packages
 
         ```bash
-        pip3 install -r requirements.txt
+        uv sync
         ```
     5. Run Regis
 
         ```bash
-        python3 bot.py
+        uv run regis
         ```
 
 === "To Heroku"

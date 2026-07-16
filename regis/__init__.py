@@ -10,12 +10,10 @@ logging.getLogger("imdbpy").setLevel(logging.ERROR)
 
 from pyrogram import Client, __version__
 from pyrogram.raw.all import layer
-from pyrogram.types import ChatPermissions
-from database.ia_filterdb import Media
-from database.users_chats_db import db
-from info import SESSION, API_ID, API_HASH, BOT_TOKEN, LOG_STR
-from utils import temp
-from plugins.index import index_files_to_db
+from regis.database.ia_filterdb import Media
+from regis.database.users_chats_db import db
+from regis.info import SESSION, API_ID, API_HASH, BOT_TOKEN, LOG_STR
+from regis.utils import temp
 
 class Bot(Client):
 
@@ -61,4 +59,11 @@ class Bot(Client):
 
 
 app = Bot()
-app.run()
+
+
+def main():
+    app.run()
+
+
+if __name__ == "__main__":
+    main()
